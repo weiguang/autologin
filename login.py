@@ -15,6 +15,7 @@ from BeautifulSoup import BeautifulSoup
 def login(username,passwd):
     session=requests.session()
     session.get('http://192.168.252.133:8080/selfservice').text
+    retry = 0
     while True :
         img=session.get('http://192.168.252.133:8080/selfservice/common/web/verifycode.jsp').content
         with open('captcha.jpeg','wb') as imgfile:
@@ -47,12 +48,15 @@ def login(username,passwd):
         soup = BeautifulSoup(html)
         flag = html.find(u'您还未登录或会话过期')
         time.sleep(1)
-        if flag == -1 :
-            break
+        if flag == -1:
+            return session
         else :
-            print("logn error,retry now!")
+            retry = retry + 1
+            print(str(retry) + " logn error,retry now!")
+            if retry > 2:
+                break
     #print(html)
-    return session
+    return ""
 
 def onlineDetail(session):
     toTime = datetime.datetime.now()
@@ -107,6 +111,9 @@ def onlineDetail(session):
 
 def check(username,passwd):
     session = login(username,passwd)
+    if session == "" :
+        print(username + " login error, skip this number!")
+        return
     logintimes = onlineDetail(session)
     print "onlinelog:"+str(logintimes)
     f = open("result.re", 'a+')
@@ -125,6 +132,6 @@ def main():
     #username='bgnxy111'
     #passwd=username
     #check(username,passwd)
-    checkList("good_list.re")
+    checkList("test.re")
 
 main()
