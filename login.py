@@ -153,6 +153,6 @@ def main():
     #username='bgnxy111'
     #passwd=username
     #check(username,passwd)
-    checkList("20170815.re")
+    checkList("test.re")
 
 main()
