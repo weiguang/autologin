@@ -11,6 +11,16 @@ import time
 
 from BeautifulSoup import BeautifulSoup  
 
+loginurl='http://192.168.252.133:8080/selfservice/module/scgroup/web/login_judge.jsf?'
+
+# get login 
+def loginget(username,passwd):
+    session=requests.session()
+    html = session.get(loginurl+'name='+username+'&password='+passwd).text
+    if html.find('index_self.jsf') == -1 :
+	return ""
+    else:
+	return session
 
 def login(username,passwd):
     session=requests.session()
@@ -58,6 +68,7 @@ def login(username,passwd):
     #print(html)
     return ""
 
+#查连接记录
 def onlineDetail(session):
     toTime = datetime.datetime.now()
     fromTime = datetime.datetime.now() - datetime.timedelta(days=30)
@@ -109,17 +120,27 @@ def onlineDetail(session):
     else:
         return 0 
 
+#查余额
+def getbalance(session) :
+    html=session.get('http://192.168.252.133:8080/selfservice/module/webcontent/web/content_self.jsf').text
+    soup = BeautifulSoup(html)
+    balance = soup.find('span',{'id':'offileForm:currentAccountFeeValue'}).text
+    return float(balance)
+
+#根据用户名和密码查询，默认一个月没有登录，并且余额多余1元的输出到result.re文件
 def check(username,passwd):
-    session = login(username,passwd)
+    session = loginget(username,passwd)
     if session == "" :
         print(username + " login error, skip this number!")
         return
+    balance = getbalance(session);
     logintimes = onlineDetail(session)
-    print "onlinelog:"+str(logintimes)
+    print "user:%s, balance:%.1f, donlinelog:%s" % (username, balance ,str(logintimes))
     f = open("result.re", 'a+')
-    if(logintimes == 0):
+    if (logintimes == 0 and balance > 1):
         print >> f, username 
 
+#账号列表查询
 def checkList(filepath):
     for line in open(filepath):
 	name=line.strip()
@@ -132,6 +153,6 @@ def main():
     #username='bgnxy111'
     #passwd=username
     #check(username,passwd)
-    checkList("test.re")
+    checkList("20170815.re")
 
 main()
