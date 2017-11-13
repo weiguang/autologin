@@ -1,4 +1,4 @@
-# coding: utf-8
+#-*- coding: UTF-8 -*-
 
 import requests
 from recognise import *
@@ -8,6 +8,7 @@ import getpass
 import re
 import datetime
 import time
+import sys
 
 from BeautifulSoup import BeautifulSoup  
 
@@ -18,9 +19,9 @@ def loginget(username,passwd):
     session=requests.session()
     html = session.get(loginurl+'name='+username+'&password='+passwd).text
     if html.find('index_self.jsf') == -1 :
-	return ""
+		return ""
     else:
-	return session
+		return session
 
 def login(username,passwd):
     session=requests.session()
@@ -101,7 +102,7 @@ def onlineDetail(session):
     'ec_p':1
     }
 
-    html=session.post('http://192.168.252.133:8080/selfservice/module/onlineuserself/web/onlinedetailself_list.jsf',data=data,headers=headers).content
+    html=session.post('http://192.168.252.133:8080/selfservice/module/onlineuserself/web/onlinedetailself_list.jsf',data=data,headers=headers).content.decode('gbk')
     #print(html)
     soup = BeautifulSoup(html) 
     #tables = soup.findAll('table',{'id':'ec_table'})  
@@ -135,7 +136,7 @@ def check(username,passwd):
         return
     balance = getbalance(session);
     logintimes = onlineDetail(session)
-    print "user:%s, balance:%.1f, donlinelog:%s" % (username, balance ,str(logintimes))
+    print u'user:%s, balance:%f, donlinelog: %s' % (username, balance , logintimes)
     f = open("result.re", 'a+')
     if (logintimes == 0 and balance > 1):
         print >> f, username 
