@@ -127,7 +127,7 @@ def getbalance(session) :
     balance = soup.find('span',{'id':'offileForm:currentAccountFeeValue'}).text
     return float(balance)
 
-#根据用户名和密码查询，默认一个月没有登录，并且余额多余1元的输出到result.re文件
+#根据用户名和密码查询，默认一个月没有登录，并且余额多于1元的输出到result.re文件
 def check(username,passwd):
     session = loginget(username,passwd)
     if session == "" :
