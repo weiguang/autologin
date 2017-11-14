@@ -154,6 +154,7 @@ def main():
     #username='bgnxy111'
     #passwd=username
     #check(username,passwd)
-    checkList("test.re")
+    checkList("bg.re")
+    checkList("student.re")
 
 main()
