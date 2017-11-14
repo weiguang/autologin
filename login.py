@@ -119,7 +119,7 @@ def onlineDetail(session):
     if logintimes != u'当前无记录':
         return logintimes
     else:
-        return 0 
+        return '0' 
 
 #查余额
 def getbalance(session) :
@@ -138,7 +138,7 @@ def check(username,passwd):
     logintimes = onlineDetail(session)
     print u'user: %s, balance: %.1f,\tonlinelog: %s' % (username, balance , logintimes)
     f = open("result.re", 'a+')
-    if  balance > 10 and int(logintimes) < 3:
+    if  balance > 10 and int(logintimes.replace(',','')) < 3:
         print >> f, username 
 
 #账号列表查询
@@ -158,3 +158,4 @@ def main():
     checkList("student.re")
 
 main()
+
