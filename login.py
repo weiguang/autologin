@@ -136,9 +136,9 @@ def check(username,passwd):
         return
     balance = getbalance(session);
     logintimes = onlineDetail(session)
-    print u'user: %s, balance: %.1f,\tdonlinelog: %s' % (username, balance , logintimes)
+    print u'user: %s, balance: %.1f,\tonlinelog: %s' % (username, balance , logintimes)
     f = open("result.re", 'a+')
-    if (logintimes < 2 and balance > 1):
+    if  balance > 10 and int(logintimes) < 2:
         print >> f, username 
 
 #账号列表查询
@@ -154,6 +154,6 @@ def main():
     #username='bgnxy111'
     #passwd=username
     #check(username,passwd)
-    checkList("bg.re")
+    checkList("test.re")
 
 main()
