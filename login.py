@@ -138,7 +138,7 @@ def check(username,passwd):
     logintimes = onlineDetail(session)
     print u'user: %s, balance: %.1f,\tonlinelog: %s' % (username, balance , logintimes)
     f = open("result.re", 'a+')
-    if  balance > 10 and int(logintimes) < 2:
+    if  balance > 10 and int(logintimes) < 3:
         print >> f, username 
 
 #账号列表查询
