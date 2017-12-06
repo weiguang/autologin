@@ -1,5 +1,6 @@
-#-*- coding: UTF-8 -*-
+#coding:utf-8
 
+import os
 import requests
 from recognise import *
 from PIL import Image
@@ -13,6 +14,9 @@ import sys
 from BeautifulSoup import BeautifulSoup  
 
 loginurl='http://192.168.252.133:8080/selfservice/module/scgroup/web/login_judge.jsf?'
+
+def tt():
+    print '12345'
 
 # get login 
 def loginget(username,passwd):
@@ -157,5 +161,6 @@ def main():
     checkList("bg.re")
     checkList("student.re")
 
-main()
+if __name__=='__main__':
+    main()
 
