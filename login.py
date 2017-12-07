@@ -141,7 +141,7 @@ def check(username,passwd):
     balance = getbalance(session);
     logintimes = onlineDetail(session)
     print u'user: %s, balance: %.1f,\tonlinelog: %s' % (username, balance , logintimes)
-    f = open("result.re", 'a+')
+    f = open("resultc.re", 'a+')
     if  balance > 10 and int(logintimes.replace(',','')) < 3:
         print >> f, username 
 
