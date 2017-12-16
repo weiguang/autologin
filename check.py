@@ -100,9 +100,10 @@ def main():
     #username='bgnxy111'
     #passwd=username
     #check(username,passwd)
-    #checkList("bg.re")
-    #checkList("student.re")
-    checkList("resultT.re")
+
+    #checkList("resultS.re")
+    #checkList("resultT.re")
+    checkList("resultB.re")
 
 if __name__=='__main__':
     main()
