@@ -31,7 +31,7 @@ def onlineDetail(session):
     
 
     html=session.get('http://192.168.252.133:8080/selfservice/module/onlineuserself/web/onlinedetailself_list.jsf',headers=headers).text
-    soup = BeautifulSoup(html) 
+    soup = BeautifulSoup(html, "html.parser")
     submitCodeId=soup.find(id="submitCodeId")["value"]
     VIEW=soup.find(id="com.sun.faces.VIEW")["value"]
     
@@ -50,7 +50,7 @@ def onlineDetail(session):
 
     html=session.post('http://192.168.252.133:8080/selfservice/module/onlineuserself/web/onlinedetailself_list.jsf',data=data,headers=headers).content.decode('gbk')
     #print(html)
-    soup = BeautifulSoup(html) 
+    soup = BeautifulSoup(html, "html.parser")
     #tables = soup.findAll('table',{'id':'ec_table'})  
     #tab = tables[0]  
     #for tr in tab.findAll('tr'):  
@@ -70,7 +70,7 @@ def onlineDetail(session):
 #查余额
 def getbalance(session) :
     html=session.get('http://192.168.252.133:8080/selfservice/module/webcontent/web/content_self.jsf').text
-    soup = BeautifulSoup(html)
+    soup = BeautifulSoup(html, "html.parser")
     balance = soup.find('span',{'id':'offileForm:currentAccountFeeValue'}).text
     return float(balance)
 
@@ -100,8 +100,9 @@ def main():
     #username='bgnxy111'
     #passwd=username
     #check(username,passwd)
-    checkList("bg.re")
-    checkList("student.re")
+    #checkList("bg.re")
+    #checkList("student.re")
+    checkList("resultT.re")
 
 if __name__=='__main__':
     main()
